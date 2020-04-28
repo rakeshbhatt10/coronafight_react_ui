@@ -4,17 +4,10 @@ import { Helmet } from "react-helmet";
 import { getStateWiseData, getStats, getTestingData } from "./services/patients.service";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import Toolbar from "./components/nav/Toolbar";
-import Footer from "./components/Footer";
-import WhatsappShare from "./components/whatsapp-share";
-import { schemaMarkup } from "./components/SEO";
-import SocialFooter from "./components/SocialFooter";
 import Routes from "./Routes";
 import Alert from "./components/Alert";
 import { useDarkMode } from "./hooks/useDarkMode";
-import { sendEventToGA } from "./services/analytics.service";
 
-const Notification = React.lazy(() => import("./components/Notification"));
 const showContentUpdatedHTML = <span>Website was updated in background, please reload to load the lastest version. <a href="#" onClick={() => window.location.reload()}>Click Here</a></span>
 
 const Loading = () =>{
@@ -77,17 +70,11 @@ const App = () => {
     <>
       <Helmet>
         <script type="application/json">
-          {JSON.stringify(schemaMarkup())}
         </script>
       </Helmet>
       <Router>
         <Suspense fallback={<Loading></Loading>}>
           <>
-            <Toolbar 
-              handleDarkModeClick={() => { toggleTheme(); sendEventToGA('User', 'Dark/Mode', theme)}}
-              theme={theme}
-            />
-            <Notification></Notification>
             {!isLoading && <Routes
               isLoading={isLoading}
               statewise={statewise}
@@ -101,8 +88,6 @@ const App = () => {
               gender={gender}
               theme={theme}
               hospitalizationStatus={hospitalizationStatus}></Routes>}
-            <SocialFooter></SocialFooter>
-            <Footer></Footer>
           </>
           <Alert show={showContentUpdatedAlert} content={showContentUpdatedHTML}></Alert>
         </Suspense>

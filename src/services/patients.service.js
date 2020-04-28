@@ -1,5 +1,5 @@
 import axios from "axios";
-const api = process.env.REACT_APP_API_URL;
+const api = "https://api.livecovid.in/api";
 
 export const getStateWiseData = () => {
   return axios.get(`${api}/state`);
